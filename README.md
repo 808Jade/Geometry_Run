@@ -13,6 +13,7 @@
     게임 시작 버튼 \
     게임 종료 버튼 \
     스테이지 선택 버튼 \
+    다른 스테이지를 선택할 수 있는 버튼 \
     시작화면으로 돌아가는 버튼 \
     점프 버튼 \
     다시 시작 버튼 \
@@ -40,7 +41,7 @@
     ![시작 화면](https://github.com/808Jade/Geometry_Run/blob/master/readme_img/start_scene.png)
 
 - ### 스테이지 선택 화면
-    각 스테이지를 시작할 수 있는 버튼(->해당 스테이지 게임 시작), 시작화면으로 돌아가는 버튼(->시작 화면)
+    각 스테이지를 시작할 수 있는 버튼(->해당 스테이지 게임 시작), 시작화면으로 돌아가는 버튼(->시작 화면), 다른 스테이지를 선택할 수 있는 버튼
     ![스테이지 선택 화면](https://github.com/808Jade/Geometry_Run/blob/master/readme_img/stage_select_scene.png)
 
 - ### 게임 화면
