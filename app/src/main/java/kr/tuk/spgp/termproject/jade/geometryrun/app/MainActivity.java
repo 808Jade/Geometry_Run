@@ -1,14 +1,16 @@
-package kr.tuk.spgp.termproject.jade.geometryrun;
+package kr.tuk.spgp.termproject.jade.geometryrun.app;
 
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.activity.GameActivity;
+import kr.tuk.spgp.termproject.jade.geometryrun.R;
+
+public class MainActivity extends GameActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
