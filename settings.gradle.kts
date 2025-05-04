@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Geometry Run"
 include(":app")
+include(":a2dg")
