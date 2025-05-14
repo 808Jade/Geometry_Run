@@ -3,6 +3,7 @@ package kr.tuk.spgp.termproject.jade.geometryrun.app;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.MotionEvent;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -26,11 +27,13 @@ public class MainActivity extends GameActivity {
         });
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            startActivity(new Intent(this, GeometryRunAcrivity.class));
-        }
-        return false;
+    public void onBtnStartGame(View view) {
+        startGame(1);
     }
+
+    private void startGame(int stage) {
+        Intent intent = new Intent(this, GeometryRunAcrivity.class);
+        startActivity(intent);
+    }
+
 }
