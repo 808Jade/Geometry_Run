@@ -5,13 +5,14 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.Log;
+import androidx.annotation.NonNull;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.res.BitmapPool;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.RectUtil;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 
-public class Sprite implements IGameObject {
+public abstract class Sprite implements IGameObject {
     private static final String TAG = Sprite.class.getSimpleName();
     protected Bitmap bitmap;
     protected Rect srcRect = null;
@@ -58,4 +59,12 @@ public class Sprite implements IGameObject {
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, srcRect, dstRect, null);
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "@" + System.identityHashCode(this) + "(" + (int)width + "x" + (int)height + ")";
+    }
+
+    public abstract RectF getCollisionRect();
 }

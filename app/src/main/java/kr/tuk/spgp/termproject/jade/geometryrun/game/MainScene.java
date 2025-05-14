@@ -9,7 +9,7 @@ import kr.tuk.spgp.termproject.jade.geometryrun.R;
 
 public class MainScene extends Scene {
     public enum Layer {
-        bg, floor, player;
+        bg, floor, item, controller, player;
         public static final int COUNT = values().length;
     }
 
@@ -25,6 +25,9 @@ public class MainScene extends Scene {
         player = new Player();
         add(Layer.player, player);
         add(Layer.floor, new Floor());
+
+        add(Layer.controller, new MapLoader(this));
+        add(Layer.controller, new CollisionChecker(this, player));
     }
 
     // Overridables
