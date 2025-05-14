@@ -66,6 +66,7 @@
 |8 (5/26)| 최종 테스트 | 0% |
 
 # 주별 커밋 수
+![커밋 수](https://github.com/808Jade/Geometry_Run/blob/master/readme_img/commits.png)
 |주차(날짜)|커밋 수|
 |:--|:--:|
 |1 (4/ 7)| 10 |
@@ -79,6 +80,8 @@
 없음
 
 # 게임 화면
+ ![게임 실행 시 화면](https://github.com/808Jade/Geometry_Run/blob/master/readme_img/startscene.png)
+ ![게임 시작 화면](https://github.com/808Jade/Geometry_Run/blob/master/readme_img/gamescene.png)
 
 # MainScene 에 등장하는 game object
 |Object|구성 정보|상호작용 정보|클래스의 책임|
