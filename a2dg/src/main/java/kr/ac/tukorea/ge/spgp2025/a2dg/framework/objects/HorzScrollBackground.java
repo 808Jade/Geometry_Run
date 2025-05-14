@@ -12,7 +12,7 @@ public class HorzScrollBackground extends Sprite {
         super(bitmapResId);
         this.width = bitmap.getWidth() * Metrics.height / bitmap.getHeight();
         setPosition(Metrics.width/2, Metrics.height/2, width, Metrics.height);
-        this.speed = speed;
+        this.speed = speed * 4;
     }
 
     @Override
