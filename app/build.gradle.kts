@@ -6,6 +6,11 @@ android {
     namespace = "kr.tuk.spgp.termproject.jade.geometryrun"
     compileSdk = 35
 
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "kr.tuk.spgp.termproject.jade.geometryrun"
         minSdk = 24

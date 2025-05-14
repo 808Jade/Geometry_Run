@@ -1,6 +1,8 @@
 package kr.tuk.spgp.termproject.jade.geometryrun.app;
 
 import android.os.Bundle;
+import android.content.Intent;
+import android.view.MotionEvent;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -22,5 +24,13 @@ public class MainActivity extends GameActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            startActivity(new Intent(this, GeometryRunAcrivity.class));
+        }
+        return false;
     }
 }
