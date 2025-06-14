@@ -43,12 +43,7 @@ public class Player extends Sprite {
         }
     }
     private void updateCollisionRect() {
-        float[] insets = edgeInsetRatios[state.ordinal()];
-        collisionRect.set(
-                dstRect.left + width * insets[0],
-                dstRect.top + height * insets[1],
-                dstRect.right - width * insets[2],
-                dstRect.bottom - height * insets[3]);
+
     }
     public void jump() {
         if (state == State.running) {

@@ -9,3 +9,9 @@ public class Floor extends Sprite {
         setPosition(800f, 800f, 1600f, 200f);
     }
 }
+
+public class FloorBox extends MapObject{
+    public FloorBox() {
+        // super(R.mipmap.floorbox);
+    }
+}
