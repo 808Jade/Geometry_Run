@@ -2,6 +2,8 @@ package kr.tuk.spgp.termproject.jade.geometryrun.game;
 
 import android.view.MotionEvent;
 
+import java.util.Random;
+
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.HorzScrollBackground;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.VertScrollBackground;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
@@ -27,8 +29,8 @@ public class MainScene extends Scene {
 
         add(Layer.floor, new Floor());
 
-        add(Layer.controller, new MapLoader(this));
-        add(Layer.controller, new CollisionChecker(this, player));
+        //add(Layer.controller, new MapLoader(this));
+        //add(Layer.controller, new CollisionChecker(this, player));
 
         add(Layer.obstacle, new Obstacle());
     }
