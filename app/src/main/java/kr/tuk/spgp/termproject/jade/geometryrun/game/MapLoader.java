@@ -18,14 +18,7 @@ public class MapLoader implements IGameObject {
 
     @Override
     public void update() {
-        floor_x += MapObject.SPEED * GameView.frameTime;
-//        while (floor_x < Metrics.width) {
-//            int idx = random.nextInt(FloorBox.Type.COUNT);
-//            FloorBox.Type type = FloorBox.Type.values()[idx];
-//            FloorBox floorBox = FloorBox.get(type, floor_x, 700);
-//            scene.add(floorBox);
-//            floor_x += floorBox.getWidth();
-//        }
+        item_x += MapObject.SPEED * GameView.frameTime;
         while (item_x < Metrics.width) {
             int y = (random.nextInt(6) + 1) * 100;
             int count = 3;
@@ -36,6 +29,7 @@ public class MapLoader implements IGameObject {
                 count = random.nextInt(5) + 1;
             }
             for (int i = 0; i < count; i++) {
+                int idx = random.nextInt(6);
                 int y2 = y - random.nextInt(3) * 100;
                 Obstacle jellyItem = Obstacle.get(item_x, y2);
                 scene.add(jellyItem);

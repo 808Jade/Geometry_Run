@@ -17,6 +17,12 @@ public class Obstacle extends MapObject {
     public MainScene.Layer getLayer() {
         return MainScene.Layer.obstacle;
     }
+
+    @Override
+    public void update() {
+        super.update();
+        //updateCollisionRect(0.15f);
+    }
     public static Obstacle get(float left, float top) {
         return Scene.top().getRecyclable(Obstacle.class).init(left, top);
         //return new Obstacle().init(left, top);
