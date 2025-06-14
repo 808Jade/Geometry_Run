@@ -47,6 +47,12 @@ public abstract class Sprite implements IGameObject {
         radius = Math.min(width, height) / 2;
         RectUtil.setRect(dstRect, x, y, width, height);
     }
+    public float getWidth() {
+        return width;
+    }
+    public float getHeight() {
+        return height;
+    }
     @Override
     public void update() {
         float timedDx = dx * GameView.frameTime;

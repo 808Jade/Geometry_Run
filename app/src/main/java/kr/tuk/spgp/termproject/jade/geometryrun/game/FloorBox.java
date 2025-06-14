@@ -22,12 +22,14 @@ public class FloorBox extends MapObject{
                 { 100, 100 }
         };
     }
-    public FloorBox() { }
+    public FloorBox() {
+        collisionRect = new RectF();
+    }
 
     private FloorBox init(Type type,float left, float top) {
         bitmap = type.bitmap();
-        width = 100;
-        height = 100;
+        width = type.width();
+        height = type.height();
         dstRect.set(left, top, left + width, top + height);
         return this;
     }
@@ -41,9 +43,14 @@ public class FloorBox extends MapObject{
     public MainScene.Layer getLayer() {
         return MainScene.Layer.floorbox;
     }
-
-    //@Override
-    public RectF getCollisionRect() {
-        return null;
+    @Override
+    public void update() {
+        super.update();
+        updateCollisionRect(0.15f);
     }
+    @Override
+    public RectF getCollisionRect() {
+        return collisionRect;
+    }
+
 }

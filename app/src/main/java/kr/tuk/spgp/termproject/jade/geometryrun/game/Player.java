@@ -3,13 +3,14 @@ package kr.tuk.spgp.termproject.jade.geometryrun.game;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.tuk.spgp.termproject.jade.geometryrun.R;
 
-public class Player extends Sprite {
+public class Player extends Sprite implements IBoxCollidable {
     public enum State {
-        running, jump
+        running, jump, falling
     }
     protected State state = State.running;
     private final float ground;
@@ -43,7 +44,11 @@ public class Player extends Sprite {
         }
     }
     private void updateCollisionRect() {
-
+        collisionRect.set(
+                dstRect.left + width,
+                dstRect.top + height,
+                dstRect.right - width,
+                dstRect.bottom - height);
     }
     public void jump() {
         if (state == State.running) {
@@ -51,7 +56,7 @@ public class Player extends Sprite {
             jumpSpeed = -JUMP_POWER;
         }
     }
-    //@Override
+    @Override
     public RectF getCollisionRect() {
         return collisionRect;
     }
