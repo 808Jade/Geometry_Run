@@ -21,7 +21,7 @@ public class FloorBox extends MapObject{
         return MainScene.Layer.floorbox;
     }
 
-    @Override
+    //@Override
     public RectF getCollisionRect() {
         return null;
     }

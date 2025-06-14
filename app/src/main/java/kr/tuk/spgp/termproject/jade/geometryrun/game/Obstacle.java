@@ -8,13 +8,11 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.tuk.spgp.termproject.jade.geometryrun.R;
 
 public class Obstacle extends MapObject {
-    public Obstacle() {
-        super(MainScene.Layer.obstacle);
-    }
+    public Obstacle() { }
 
     @Override
     public MainScene.Layer getLayer() {
-        return null;
+        return MainScene.Layer.obstacle;
     }
 
     public static Obstacle get(float left, float top) {

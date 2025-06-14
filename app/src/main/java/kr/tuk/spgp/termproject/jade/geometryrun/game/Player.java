@@ -51,7 +51,7 @@ public class Player extends Sprite {
             jumpSpeed = -JUMP_POWER;
         }
     }
-    @Override
+    //@Override
     public RectF getCollisionRect() {
         return collisionRect;
     }
