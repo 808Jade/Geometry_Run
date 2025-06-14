@@ -24,10 +24,13 @@ public class MainScene extends Scene {
 
         player = new Player();
         add(Layer.player, player);
+
         add(Layer.floor, new Floor());
 
         add(Layer.controller, new MapLoader(this));
         add(Layer.controller, new CollisionChecker(this, player));
+
+        add(Layer.obstacle, new Obstacle());
     }
 
     // Overridables

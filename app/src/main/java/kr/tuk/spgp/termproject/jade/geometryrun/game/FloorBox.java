@@ -8,7 +8,7 @@ import kr.tuk.spgp.termproject.jade.geometryrun.R;
 
 public class FloorBox extends MapObject{
     public enum Type {
-        T_10x2, T_2x2, T_3x1;
+        T_1x1;
         Bitmap bitmap() { return BitmapPool.get(resId()); }
         int resId() { return resIds[this.ordinal()]; }
         int width() { return sizes[this.ordinal()][0]; }
