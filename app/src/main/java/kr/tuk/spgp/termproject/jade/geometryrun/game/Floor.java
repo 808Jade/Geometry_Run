@@ -1,5 +1,7 @@
 package kr.tuk.spgp.termproject.jade.geometryrun.game;
 
+import android.graphics.RectF;
+
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
 import kr.tuk.spgp.termproject.jade.geometryrun.R;
 
@@ -10,8 +12,3 @@ public class Floor extends Sprite {
     }
 }
 
-public class FloorBox extends MapObject{
-    public FloorBox() {
-        // super(R.mipmap.floorbox);
-    }
-}

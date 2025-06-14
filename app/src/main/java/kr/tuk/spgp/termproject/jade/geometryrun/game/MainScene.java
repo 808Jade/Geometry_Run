@@ -9,7 +9,7 @@ import kr.tuk.spgp.termproject.jade.geometryrun.R;
 
 public class MainScene extends Scene {
     public enum Layer {
-        bg, floor, item, controller, player;
+        bg, floor, floorbox, item, controller, player, obstacle;
         public static final int COUNT = values().length;
     }
 
