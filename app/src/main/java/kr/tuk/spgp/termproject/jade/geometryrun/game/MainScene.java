@@ -31,8 +31,9 @@ public class MainScene extends Scene {
 
         //add(Layer.controller, new MapLoader(this));
         //add(Layer.controller, new CollisionChecker(this, player));
+        add(Layer.floorbox, FloorBox.get(FloorBox.Type.T_1x1, 1100, 50));
 
-        add(Layer.obstacle, new Obstacle());
+        add(Layer.obstacle, Obstacle.get(1100,100));
     }
 
     // Overridables
