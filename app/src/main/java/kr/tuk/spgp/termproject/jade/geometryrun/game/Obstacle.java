@@ -28,9 +28,4 @@ public class Obstacle extends MapObject {
         dstRect.set(left + 50 - hw, top + 100 - h, left + 50 + hw, top + 100);
         return this;
     }
-
-    @Override
-    public RectF getCollisionRect() {
-        return null;
-    }
 }

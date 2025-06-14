@@ -60,12 +60,4 @@ public abstract class Sprite implements IGameObject {
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, srcRect, dstRect, null);
     }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "@" + System.identityHashCode(this) + "(" + (int)width + "x" + (int)height + ")";
-    }
-
-    public abstract RectF getCollisionRect();
 }
