@@ -1,6 +1,7 @@
 package kr.tuk.spgp.termproject.jade.geometryrun.game;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.res.BitmapPool;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.tuk.spgp.termproject.jade.geometryrun.R;
 
 public class Obstacle extends MapObject {
@@ -17,7 +18,7 @@ public class Obstacle extends MapObject {
         return MainScene.Layer.obstacle;
     }
     public static Obstacle get(float left, float top) {
-        //return Scene.top().getRecyclable(Obstacle.class).init(index, left, top);
-        return new Obstacle().init(left, top);
+        return Scene.top().getRecyclable(Obstacle.class).init(left, top);
+        //return new Obstacle().init(left, top);
     }
 }

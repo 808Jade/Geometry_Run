@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.RectF;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.res.BitmapPool;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.tuk.spgp.termproject.jade.geometryrun.R;
 
 public class FloorBox extends MapObject{
@@ -13,8 +14,9 @@ public class FloorBox extends MapObject{
         int resId() { return resIds[this.ordinal()]; }
         int width() { return sizes[this.ordinal()][0]; }
         int height() { return sizes[this.ordinal()][1]; }
+        public static final int COUNT = values().length;
         static final int[] resIds = {
-                R.mipmap.floorbox
+                R.mipmap.block_basic
         };
         static final int[][] sizes = {
                 { 100, 100 }
@@ -31,7 +33,8 @@ public class FloorBox extends MapObject{
     }
 
     public static FloorBox get(Type type, float left, float top) {
-        return new FloorBox().init(type, left, top);
+        //return new FloorBox().init(type, left, top);
+        return Scene.top().getRecyclable(FloorBox.class).init(type, left, top);
     }
 
     @Override

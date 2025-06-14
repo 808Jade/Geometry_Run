@@ -20,11 +20,14 @@ public class MapLoader implements IGameObject {
     public void update() {
         floor_x += -200.0f * GameView.frameTime;
         while (floor_x < Metrics.width) {
+            int idx = random.nextInt(FloorBox.Type.COUNT);
+            FloorBox.Type type = FloorBox.Type.values()[idx];
+            FloorBox floorBox = FloorBox.get(type, floor_x, 700);
+            scene.add(floorBox);
+            floor_x += type.width();
         }
 
-        item_x += -200.0f * GameView.frameTime;
-        while (item_x < Metrics.width) {
-        }
+//        item_x += -200.0f * GameView.frameTime;
     }
 
     @Override
