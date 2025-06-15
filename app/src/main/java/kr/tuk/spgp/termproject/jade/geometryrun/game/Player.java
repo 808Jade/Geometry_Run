@@ -37,24 +37,6 @@ public class Player extends Sprite implements IBoxCollidable {
     }
     @Override
     public void update() {
-//        if (state == State.jump) {
-//            float dy = jumpSpeed * GameView.frameTime;
-//            jumpSpeed += GRAVITY * GameView.frameTime;
-//            if (jumpSpeed >= 0){ // 낙하로 전환된 시점
-//                float foot = collisionRect.bottom;
-//                float floor = findNearestFloorTop(foot);
-//                if (foot + dy >= floor) {
-//                    dy = floor - foot;
-//                    state = State.running;
-//                }
-//            }
-//            y += dy;
-//            setPosition(x, y, width, height);
-//            updateCollisionRect();
-//        }
-//        if (state == State.running) {
-//            jumpSpeed += GRAVITY * GameView.frameTime;
-//        }
         switch (state) {
             case jump:
             case falling:
@@ -114,8 +96,8 @@ public class Player extends Sprite implements IBoxCollidable {
                 dstRect.right - width,
                 dstRect.bottom - height);
     }
-    public void jump() {
-        if (state == State.running) {
+    public void jump(boolean startsJump) {
+        if (state == State.running && startsJump) {
             state = State.jump;
             jumpSpeed = -JUMP_POWER;
         }
@@ -124,9 +106,10 @@ public class Player extends Sprite implements IBoxCollidable {
     public RectF getCollisionRect() {
         return collisionRect;
     }
+
     public boolean onTouch(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            jump();
+            jump(true);
         }
         return false;
     }

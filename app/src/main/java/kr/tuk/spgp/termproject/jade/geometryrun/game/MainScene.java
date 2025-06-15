@@ -32,16 +32,16 @@ public class MainScene extends Scene {
 
         add(Layer.floor, new Floor());
 
-        add(Layer.controller, new MapLoader(this));
-        add(Layer.controller, new CollisionChecker(this, player));
-
         add(Layer.touch, new Button(R.mipmap.btn_jump_transparent, Metrics.width / 2, Metrics.height / 2, Metrics.width, Metrics.height, new Button.OnTouchListener() {
             @Override
             public boolean onTouch(boolean pressed) {
-                player.jump();
-                return false;    
+                player.jump(pressed);
+                return false;
             }
         }));
+
+        add(Layer.controller, new MapLoader(this));
+        add(Layer.controller, new CollisionChecker(this, player));
     }
 
     // Overridables

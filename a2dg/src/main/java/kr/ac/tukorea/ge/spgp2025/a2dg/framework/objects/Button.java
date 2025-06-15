@@ -16,19 +16,23 @@ public class Button extends Sprite implements ITouchable {
         super(bitmapResId, cx, cy, width, height);
         this.listener = listener;
     }
+    protected boolean captures;
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-        float[] pts = Metrics.fromScreen(e.getX(), e.getY());
-        float x = pts[0], y = pts[1];
-        if (!dstRect.contains(x, y)) {
-            return false;
-        }
         int action = e.getAction();
+        Log.d(TAG, "onTouch:" + this + " action=" + action);
         if (action == MotionEvent.ACTION_DOWN) {
+            float[] pts = Metrics.fromScreen(e.getX(), e.getY());
+            float x = pts[0], y = pts[1];
+            if (!dstRect.contains(x, y)) {
+                return false;
+            }
+            captures = true;
             return listener.onTouch(true);
         } else if (action == MotionEvent.ACTION_UP) {
+            captures = false;
             return listener.onTouch(false);
         }
-        return false;
+        return captures;
     }
 }

@@ -23,7 +23,7 @@ public abstract class MapObject extends Sprite implements IRecyclable, IBoxColli
         float dx = SPEED * GameView.frameTime;
         dstRect.offset(dx, 0);
         if (dstRect.right < 0) {
-            Log.d(TAG, "Removing:" + this);
+            //Log.d(TAG, "Removing:" + this);
             removeFromScene();
         }
     }
