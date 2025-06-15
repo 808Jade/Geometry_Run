@@ -34,6 +34,9 @@ public class MapLoader implements IGameObject {
                 Obstacle jellyItem = Obstacle.get(item_x, y2);
                 scene.add(jellyItem);
                 item_x += jellyItem.getWidth();
+//                int index = random.nextInt(ObstacleFactory.COUNT);
+//                Obstacle obstacle = ObstacleFactory.get(index, item_x, 600);
+//                scene.add(obstacle);
             }
         }
     }

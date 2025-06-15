@@ -10,17 +10,19 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.CollisionHelper;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 import kr.tuk.spgp.termproject.jade.geometryrun.R;
 
 public class Player extends Sprite implements IBoxCollidable {
     public enum State {
-        running, jump, falling
+        running, jump, falling, hurt
     }
     protected State state = State.running;
     private final float ground;
     private final RectF collisionRect = new RectF();
+    private Obstacle obstacle;
     private float jumpSpeed;
     private static final float JUMP_POWER = 900f;
     private static final float GRAVITY = 1700f;
@@ -63,6 +65,12 @@ public class Player extends Sprite implements IBoxCollidable {
                     jumpSpeed = 0; // 자유낙하이므로 속도가 0 부터 시작한다.
                 }
                 break;
+            case hurt:
+                if (!CollisionHelper.collides(this, obstacle)) {
+                    state = State.running;
+                    obstacle = null;
+                }
+                break;
         }
     }
     private float findNearestFloorTop(float foot) {
@@ -102,15 +110,15 @@ public class Player extends Sprite implements IBoxCollidable {
             jumpSpeed = -JUMP_POWER;
         }
     }
+    public void hurt(Obstacle obstacle) {
+        if (state == State.hurt) return;
+        state = State.hurt;
+        this.obstacle = obstacle;
+    }
     @Override
     public RectF getCollisionRect() {
         return collisionRect;
     }
 
-    public boolean onTouch(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            jump(true);
-        }
-        return false;
-    }
+
 }

@@ -22,7 +22,9 @@ public class FloorBox extends MapObject{
                 { 100, 100 }
         };
     }
-    public FloorBox() { }
+    public FloorBox() {
+        super(MainScene.Layer.floorbox);
+    }
 
     private FloorBox init(Type type,float left, float top) {
         bitmap = type.bitmap();
@@ -37,10 +39,6 @@ public class FloorBox extends MapObject{
         return Scene.top().getRecyclable(FloorBox.class).init(type, left, top);
     }
 
-    @Override
-    public MainScene.Layer getLayer() {
-        return MainScene.Layer.floorbox;
-    }
     @Override
     public void update() {
         super.update();
