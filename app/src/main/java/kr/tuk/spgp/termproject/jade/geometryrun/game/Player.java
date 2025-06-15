@@ -1,6 +1,7 @@
 package kr.tuk.spgp.termproject.jade.geometryrun.game;
 
 import android.graphics.RectF;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import kr.tuk.spgp.termproject.jade.geometryrun.R;
 
 public class Player extends Sprite implements IBoxCollidable {
     public enum State {
-        running, jump
+        running, jump, falling
     }
     protected State state = State.running;
     private final float ground;
@@ -36,20 +37,50 @@ public class Player extends Sprite implements IBoxCollidable {
     }
     @Override
     public void update() {
-        if (state == State.jump) {
-            float dy = jumpSpeed * GameView.frameTime;
-            jumpSpeed += GRAVITY * GameView.frameTime;
-            if (jumpSpeed >= 0){
+//        if (state == State.jump) {
+//            float dy = jumpSpeed * GameView.frameTime;
+//            jumpSpeed += GRAVITY * GameView.frameTime;
+//            if (jumpSpeed >= 0){ // 낙하로 전환된 시점
+//                float foot = collisionRect.bottom;
+//                float floor = findNearestFloorTop(foot);
+//                if (foot + dy >= floor) {
+//                    dy = floor - foot;
+//                    state = State.running;
+//                }
+//            }
+//            y += dy;
+//            setPosition(x, y, width, height);
+//            updateCollisionRect();
+//        }
+//        if (state == State.running) {
+//            jumpSpeed += GRAVITY * GameView.frameTime;
+//        }
+        switch (state) {
+            case jump:
+            case falling:
+                float dy = jumpSpeed * GameView.frameTime;
+                jumpSpeed += GRAVITY * GameView.frameTime;
+                if (jumpSpeed >= 0) { // 낙하하고 있다면 발밑에 땅이 있는지 확인한다
+                    float foot = collisionRect.bottom;
+                    float floor = findNearestFloorTop(foot);
+                    if (foot + dy >= floor) {
+                        dy = floor - foot;
+                        state = State.running;
+                    }
+                }
+                y += dy;
+                setPosition(x, y, width, height);
+                updateCollisionRect();
+                break;
+            case running:
                 float foot = collisionRect.bottom;
                 float floor = findNearestFloorTop(foot);
-                if (foot + dy >= floor) {
-                    dy = floor - foot;
-                    state = State.running;
+                if (foot < floor) {
+                    // 달리는 중에 발밑 floor 좌표가 발보다 아래에 있다면 떨어지자
+                    state = State.falling;
+                    jumpSpeed = 0; // 자유낙하이므로 속도가 0 부터 시작한다.
                 }
-            }
-            y += dy;
-            setPosition(x, y, width, height);
-            updateCollisionRect();
+                break;
         }
     }
     private float findNearestFloorTop(float foot) {
@@ -57,15 +88,14 @@ public class Player extends Sprite implements IBoxCollidable {
         MainScene scene = (MainScene) Scene.top();
         if (scene == null) return Metrics.height;
         ArrayList<IGameObject> floors = scene.objectsAt(MainScene.Layer.floorbox);
-        float top = ground-50; // 못 찾으면 디폴트 값은 ground이다.
+        float top = ground - 50; // 못 찾으면 디폴트 값은 ground이다.
         for (IGameObject obj: floors) {
             FloorBox floor = (FloorBox) obj;
             RectF rect = floor.getCollisionRect();
-            if (rect.left > x || x > rect.right) {
+            if (rect.left > x + width/2 || x - width/2 > rect.right) {
                 // floor 의 좌우 좌표 범위가 player 의 x 좌표를 포함하지 않으면 대상에서 제외한다.
                 continue;
             }
-            //Log.d(TAG, "foot:" + foot + " floor: " + rect);
             if (rect.top < foot) {
                 // 발보다 위에 있는 floor 는 대상에서 제외한다
                 continue;
@@ -74,7 +104,6 @@ public class Player extends Sprite implements IBoxCollidable {
                 // 더 가까운 것을 찾았다.
                 top = rect.top;
             }
-            //Log.d(TAG, "top=" + top + " gotcha:" + floor);
         }
         return top;
     }

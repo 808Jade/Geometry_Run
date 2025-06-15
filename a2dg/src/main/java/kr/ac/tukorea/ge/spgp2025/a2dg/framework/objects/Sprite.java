@@ -14,7 +14,7 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.RectUtil;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 
 public abstract class Sprite implements IGameObject {
-    private static final String TAG = Sprite.class.getSimpleName();
+    protected static final String TAG = Sprite.class.getSimpleName();
     protected Bitmap bitmap;
     protected Rect srcRect = null;
     protected final RectF dstRect = new RectF();
