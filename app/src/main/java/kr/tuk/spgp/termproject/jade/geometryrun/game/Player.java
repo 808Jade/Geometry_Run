@@ -1,5 +1,6 @@
 package kr.tuk.spgp.termproject.jade.geometryrun.game;
 
+import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -19,6 +20,10 @@ public class Player extends Sprite implements IBoxCollidable {
     public enum State {
         running, jump, falling, hurt
     }
+    public enum Face{
+        up, right, left, down
+    }
+    protected  Face face = Face.up;
     protected State state = State.running;
     private final float ground;
     private final RectF collisionRect = new RectF();
@@ -26,6 +31,8 @@ public class Player extends Sprite implements IBoxCollidable {
     private float jumpSpeed;
     private static final float JUMP_POWER = 900f;
     private static final float GRAVITY = 1700f;
+    private float rotation = 0f;
+    private float rotationSpeed = 180f;
 
     public Player() {
         super(R.mipmap.player_basic);
@@ -34,6 +41,13 @@ public class Player extends Sprite implements IBoxCollidable {
     }
     @Override
     public void update() {
+        super.update();
+        // 점프 상태일 때만 회전 적용
+        if (state == State.jump || state == State.falling) {
+            rotation += rotationSpeed * GameView.frameTime;
+            if (rotation >= 360f) rotation -= 360f; // 360도 이상이면 초기화
+        }
+
         switch (state) {
             case jump:
             case falling:
@@ -45,6 +59,7 @@ public class Player extends Sprite implements IBoxCollidable {
                     if (foot + dy >= floor) {
                         dy = floor - foot;
                         state = State.running;
+                        adjustRotationOnLanding(); // 착지 시 회전 보정
                     }
                 }
                 y += dy;
@@ -59,6 +74,12 @@ public class Player extends Sprite implements IBoxCollidable {
                     state = State.falling;
                     jumpSpeed = 0; // 자유낙하이므로 속도가 0 부터 시작한다.
                 }
+                switch(face){
+                    case up:
+                    case down:
+                    case left:
+                    case right:
+                }
                 break;
             case hurt:
                 if (!CollisionHelper.collides(this, obstacle)) {
@@ -66,6 +87,25 @@ public class Player extends Sprite implements IBoxCollidable {
                     obstacle = null;
                 }
                 break;
+        }
+    }
+    private void adjustRotationOnLanding() {
+        // 착지 시 rotation을 가장 가까운 표준 각도(0°, 90°, 180°, 270°)로 보정
+        float normalizedRotation = rotation % 360f;
+        if (normalizedRotation < 0) normalizedRotation += 360f;
+
+        if (normalizedRotation >= 315 || normalizedRotation < 45) {
+            rotation = 0f;
+            face = Face.up;
+        } else if (normalizedRotation >= 45 && normalizedRotation < 135) {
+            rotation = 90f;
+            face = Face.right;
+        } else if (normalizedRotation >= 135 && normalizedRotation < 225) {
+            rotation = 180f;
+            face = Face.down;
+        } else { // 225 ~ 315
+            rotation = 270f;
+            face = Face.left;
         }
     }
     private float findNearestFloorTop(float foot) {
@@ -114,6 +154,13 @@ public class Player extends Sprite implements IBoxCollidable {
     public RectF getCollisionRect() {
         return collisionRect;
     }
-
-
+    @Override
+    public void draw(Canvas canvas) {
+        //super.draw(canvas); // 회전 여부에 따라 다르게 처리됨
+        canvas.save();
+        canvas.rotate(rotation, dstRect.centerX(), dstRect.centerY());
+        canvas.drawBitmap(bitmap, srcRect, dstRect, null);
+        canvas.restore();
+        // 추가적인 Player 드로잉 로직
+    }
 }
