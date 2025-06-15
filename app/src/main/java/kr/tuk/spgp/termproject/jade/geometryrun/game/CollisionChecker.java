@@ -1,6 +1,7 @@
 package kr.tuk.spgp.termproject.jade.geometryrun.game;
 
 import android.graphics.Canvas;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -24,16 +25,21 @@ public class CollisionChecker implements IGameObject {
             if (!(gobj instanceof FloorBox)) {
                 continue;
             }
-            FloorBox item = (FloorBox) gobj;
-            if (CollisionHelper.collides(player, item)) {
-                scene.remove(item);
-            }
         }
+
         ArrayList<IGameObject> obstacles = scene.objectsAt(MainScene.Layer.obstacle);
         for (int i = obstacles.size() - 1; i >= 0; i--) {
             Obstacle obstacle = (Obstacle) obstacles.get(i);
             if (CollisionHelper.collides(player, obstacle)) {
                 player.hurt(obstacle);
+            }
+        }
+
+        ArrayList<IGameObject> floors = scene.objectsAt(MainScene.Layer.floorbox);
+        for (int i = floors.size() - 1; i >= 0; i--) {
+            FloorBox fb = (FloorBox) floors.get(i);
+            if (CollisionHelper.collides(player, fb)) {
+                player.hurt(fb);
             }
         }
     }

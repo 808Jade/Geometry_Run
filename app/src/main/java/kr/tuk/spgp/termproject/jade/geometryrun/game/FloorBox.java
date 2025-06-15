@@ -31,6 +31,7 @@ public class FloorBox extends MapObject{
         width = type.width();
         height = type.height();
         dstRect.set(left, top, left + width, top + height);
+        collisionRect = new RectF();
         return this;
     }
 
@@ -42,6 +43,6 @@ public class FloorBox extends MapObject{
     @Override
     public void update() {
         super.update();
-        //updateCollisionRect();
+        updateCollisionRect(1);
     }
 }

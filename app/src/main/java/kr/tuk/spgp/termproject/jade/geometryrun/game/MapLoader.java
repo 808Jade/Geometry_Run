@@ -14,8 +14,10 @@ import java.util.Objects;
 import java.util.Random;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
+import kr.tuk.spgp.termproject.jade.geometryrun.R;
 
 public class MapLoader implements IGameObject {
     private final MainScene scene;
@@ -126,6 +128,9 @@ public class MapLoader implements IGameObject {
             return 0; // 계산이 잘못된 경우에는 아무것도 없다고 리턴한다
         }
     }
+    Gauge gauge = new Gauge(0.025f, R.color.mapGaugeFg, R.color.mapGaugeBg);
     @Override
-    public void draw(Canvas canvas) {}
+    public void draw(Canvas canvas) {
+        gauge.draw(canvas, 200, 100, 1200, (float)index / stage_width);
+    }
 }

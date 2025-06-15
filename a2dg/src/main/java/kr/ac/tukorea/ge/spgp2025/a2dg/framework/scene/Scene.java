@@ -175,7 +175,9 @@ public class Scene {
     public static Scene top() {
         return GameView.view.getTopScene();
     }
-
+    public static void popAll() {
+        GameView.view.popAllScenes();
+    }
     //////////////////////////////////////////////////
     // Overridables
 

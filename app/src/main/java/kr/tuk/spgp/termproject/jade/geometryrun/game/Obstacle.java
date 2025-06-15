@@ -1,6 +1,7 @@
 package kr.tuk.spgp.termproject.jade.geometryrun.game;
 
 import android.graphics.RectF;
+import android.util.Log;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.res.BitmapPool;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
@@ -15,14 +16,8 @@ public class Obstacle extends MapObject {
         bitmap = BitmapPool.get(R.mipmap.spike_basic);
         width = 100;
         height = 100;
-        collisionRect = new RectF();
-        collisionRect.set(
-                dstRect.left + width,
-                dstRect.top + height,
-                dstRect.right - width,
-                dstRect.bottom - height);
         dstRect.set(left, top, left + width, top + height);
-//        setObstaclePosition(left, top);
+        collisionRect = new RectF();
         return this;
     }
     @Override
@@ -34,6 +29,7 @@ public class Obstacle extends MapObject {
     public void update() {
         super.update();
         updateCollisionRect(0.30f);
+
     }
     public static Obstacle get(float left, float top) {
         return Scene.top().getRecyclable(Obstacle.class).init(left, top);

@@ -28,6 +28,7 @@ public class Player extends Sprite implements IBoxCollidable {
     private final float ground;
     private final RectF collisionRect = new RectF();
     private Obstacle obstacle;
+    private FloorBox floorbox;
     private float jumpSpeed;
     private static final float JUMP_POWER = 900f;
     private static final float GRAVITY = 1700f;
@@ -42,6 +43,8 @@ public class Player extends Sprite implements IBoxCollidable {
     @Override
     public void update() {
         super.update();
+        updateCollisionRect();
+
         // 점프 상태일 때만 회전 적용
         if (state == State.jump || state == State.falling) {
             rotation += rotationSpeed * GameView.frameTime;
@@ -76,9 +79,13 @@ public class Player extends Sprite implements IBoxCollidable {
                 }
                 break;
             case hurt:
-                if (!CollisionHelper.collides(this, obstacle)) {
+                if ((obstacle != null && !CollisionHelper.collides(this, obstacle)) ||
+                        (floorbox != null && !CollisionHelper.collides(this, floorbox))) {
                     state = State.running;
+                    Scene.pop();
+
                     obstacle = null;
+                    floorbox = null;
                 }
                 break;
         }
@@ -106,8 +113,9 @@ public class Player extends Sprite implements IBoxCollidable {
         // 플레이어 발의 y 좌표에서 아래쪽으로 가장 가까운 floor 의 좌표를 찾는다.
         MainScene scene = (MainScene) Scene.top();
         if (scene == null) return Metrics.height;
+
         ArrayList<IGameObject> floors = scene.objectsAt(MainScene.Layer.floorbox);
-        float top = ground - 50; // 못 찾으면 디폴트 값은 ground이다.
+        float top = ground + 50; // 못 찾으면 디폴트 값은 ground이다.
         for (IGameObject obj: floors) {
             FloorBox floor = (FloorBox) obj;
             RectF rect = floor.getCollisionRect();
@@ -121,17 +129,25 @@ public class Player extends Sprite implements IBoxCollidable {
             }
             if (top > rect.top) {
                 // 더 가까운 것을 찾았다.
-                top = rect.top;
+                top = rect.top - width * 0.1f;
             }
         }
         return top;
     }
     private void updateCollisionRect() {
+        float halfWidth = width / 2;
+        float halfHeight = height / 2;
+        float centerX = dstRect.left + halfWidth;
+        float centerY = dstRect.top + halfHeight;
+
+        // 약간의 여유를 둔 정사각형 (예: width/height의 80% 사용)
+        float inset = width * 0.1f;
         collisionRect.set(
-                dstRect.left + width,
-                dstRect.top + height,
-                dstRect.right - width,
-                dstRect.bottom - height);
+                centerX - halfWidth + inset,    // left
+                centerY - halfHeight + inset,   // top
+                centerX + halfWidth - inset,    // right
+                centerY + halfHeight - inset    // bottom
+        );
     }
     public void jump(boolean startsJump) {
         if (state == State.running && startsJump) {
@@ -143,6 +159,11 @@ public class Player extends Sprite implements IBoxCollidable {
         if (state == State.hurt) return;
         state = State.hurt;
         this.obstacle = obstacle;
+    }
+    public void hurt(FloorBox floorbox) {
+        if (state == State.hurt) return;
+        state = State.hurt;
+        this.floorbox = floorbox;
     }
     @Override
     public RectF getCollisionRect() {
