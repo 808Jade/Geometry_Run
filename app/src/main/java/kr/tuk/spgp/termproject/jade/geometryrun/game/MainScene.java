@@ -1,22 +1,25 @@
 package kr.tuk.spgp.termproject.jade.geometryrun.game;
 
+import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.Random;
 
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Button;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.HorzScrollBackground;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.VertScrollBackground;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.res.Sound;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 import kr.tuk.spgp.termproject.jade.geometryrun.R;
 
 public class MainScene extends Scene {
     public enum Layer {
-        bg, floor, floorbox, item, controller, player, obstacle;
+        bg, floor, floorbox, item, controller, player, obstacle, touch;
         public static final int COUNT = values().length;
     }
-
     private final Player player;
-
+    private static final String TAG = MainScene.class.getSimpleName();
     public MainScene() {
         initLayers(Layer.COUNT);
 
@@ -31,11 +34,36 @@ public class MainScene extends Scene {
 
         add(Layer.controller, new MapLoader(this));
         add(Layer.controller, new CollisionChecker(this, player));
+
+        add(Layer.touch, new Button(R.mipmap.btn_jump_transparent, Metrics.width / 2, Metrics.height / 2, Metrics.width / 2, Metrics.height / 2, new Button.OnTouchListener() {
+            @Override
+            public boolean onTouch(boolean pressed) {
+                player.jump();
+                return false;
+            }
+        }));
     }
 
     // Overridables
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return player.onTouch(event);
+    protected int getTouchLayerIndex() {
+        return Layer.touch.ordinal();
+    }
+
+    @Override
+    public void onEnter() {
+        Sound.playMusic(R.raw.stage_1);
+    }
+    @Override
+    public void onPause() {
+        Sound.pauseMusic();
+    }
+    @Override
+    public void onResume() {
+        Sound.resumeMusic();
+    }
+    @Override
+    public void onExit() {
+        Sound.stopMusic();
     }
 }
