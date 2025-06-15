@@ -10,7 +10,7 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 
-public class MapObject extends Sprite implements IRecyclable, IBoxCollidable, ILayerProvider<MainScene.Layer> {    public static final float SPEED = -200f;
+public class MapObject extends Sprite implements IRecyclable, IBoxCollidable, ILayerProvider<MainScene.Layer> {    public static final float SPEED = -300f;
     protected RectF collisionRect;
     private final MainScene.Layer layer;
     public MapObject(MainScene.Layer layer) {

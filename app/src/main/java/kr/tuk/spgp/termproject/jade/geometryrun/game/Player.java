@@ -26,12 +26,7 @@ public class Player extends Sprite implements IBoxCollidable {
     private float jumpSpeed;
     private static final float JUMP_POWER = 900f;
     private static final float GRAVITY = 1700f;
-    protected static float[][] edgeInsetRatios = {
-            { 0.3f, 0.5f, 0.3f, 0.0f }, // State.running
-            { 0.3f, 0.6f, 0.3f, 0.0f }, // State.jump
-            { 0.3f, 0.6f, 0.3f, 0.0f }, // State.doubleJump
-            { 0.3f, 0.5f, 0.3f, 0.0f }, // State.falling
-    };
+
     public Player() {
         super(R.mipmap.player_basic);
         setPosition(400f, 650f, 100f, 100f);
