@@ -74,12 +74,6 @@ public class Player extends Sprite implements IBoxCollidable {
                     state = State.falling;
                     jumpSpeed = 0; // 자유낙하이므로 속도가 0 부터 시작한다.
                 }
-                switch(face){
-                    case up:
-                    case down:
-                    case left:
-                    case right:
-                }
                 break;
             case hurt:
                 if (!CollisionHelper.collides(this, obstacle)) {
