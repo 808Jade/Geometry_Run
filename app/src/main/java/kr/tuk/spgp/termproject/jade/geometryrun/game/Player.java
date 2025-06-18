@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.res.Sound;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.CollisionHelper;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
@@ -82,6 +83,8 @@ public class Player extends Sprite implements IBoxCollidable {
                 if ((obstacle != null && !CollisionHelper.collides(this, obstacle)) ||
                         (floorbox != null && !CollisionHelper.collides(this, floorbox))) {
                     state = State.running;
+                    Sound.playEffect(R.raw.hurt);
+
                     Scene.pop();
 
                     obstacle = null;

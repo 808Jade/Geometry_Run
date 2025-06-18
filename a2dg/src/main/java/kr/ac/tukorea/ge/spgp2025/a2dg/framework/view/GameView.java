@@ -125,7 +125,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         // 반드시 성공적인 빌드가 진행된 후에 BuildConfig.java 가 생성되므로
         // 아래 코드가 문제가 되면 잠시 삭제해서 빌드만 성공시키고 다시 살려두어도 된다.
         if (drawsDebugStuffs) {
-            drawDebugBackground(canvas);
+            //drawDebugBackground(canvas);
         }
         Scene scene = getTopScene();
         if (scene != null) {
@@ -133,7 +133,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         }
         canvas.restore();
         if (drawsDebugStuffs) {
-            drawDebugInfo(canvas, scene);
+            //drawDebugInfo(canvas, scene);
         }
     }
 
