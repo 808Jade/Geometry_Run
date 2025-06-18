@@ -165,7 +165,9 @@ public class Scene {
 
     //////////////////////////////////////////////////
     // Scene Stack Functions
-
+    public void change() {
+        GameView.view.changeScene(this);
+    }
     public void push() {
         GameView.view.pushScene(this);
     }
